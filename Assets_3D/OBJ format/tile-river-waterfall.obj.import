@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://beu0xyd6hkjr4"
+path="res://.godot/imported/tile-river-waterfall.obj-e697fd17bb0b36714f0c417ad4ad843f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tile-river-waterfall.obj-e697fd17bb0b36714f0c417ad4ad843f.mesh"]
+
+source_file="res://Assets_3D/OBJ format/tile-river-waterfall.obj"
+dest_files=["res://.godot/imported/tile-river-waterfall.obj-e697fd17bb0b36714f0c417ad4ad843f.mesh", "res://.godot/imported/tile-river-waterfall.obj-e697fd17bb0b36714f0c417ad4ad843f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

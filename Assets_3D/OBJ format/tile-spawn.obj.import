@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ce03ws6vrjbg5"
+path="res://.godot/imported/tile-spawn.obj-cb49516b48dcb03ebfc2562191ed426b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tile-spawn.obj-cb49516b48dcb03ebfc2562191ed426b.mesh"]
+
+source_file="res://Assets_3D/OBJ format/tile-spawn.obj"
+dest_files=["res://.godot/imported/tile-spawn.obj-cb49516b48dcb03ebfc2562191ed426b.mesh", "res://.godot/imported/tile-spawn.obj-cb49516b48dcb03ebfc2562191ed426b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cvckqbck4f2r7"
+path="res://.godot/imported/snow-tile-tree-quad.obj-868af0e1eaa615a50b29ad121d393dce.mesh"
+
+[deps]
+
+files=["res://.godot/imported/snow-tile-tree-quad.obj-868af0e1eaa615a50b29ad121d393dce.mesh"]
+
+source_file="res://Assets_3D/OBJ format/snow-tile-tree-quad.obj"
+dest_files=["res://.godot/imported/snow-tile-tree-quad.obj-868af0e1eaa615a50b29ad121d393dce.mesh", "res://.godot/imported/snow-tile-tree-quad.obj-868af0e1eaa615a50b29ad121d393dce.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

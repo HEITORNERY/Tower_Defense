@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://2igffmi3la8x"
+path="res://.godot/imported/weapon-ammo-cannonball.obj-d66a8f0d1b456905b5ba9cb9ae8836ab.mesh"
+
+[deps]
+
+files=["res://.godot/imported/weapon-ammo-cannonball.obj-d66a8f0d1b456905b5ba9cb9ae8836ab.mesh"]
+
+source_file="res://Assets_3D/OBJ format/weapon-ammo-cannonball.obj"
+dest_files=["res://.godot/imported/weapon-ammo-cannonball.obj-d66a8f0d1b456905b5ba9cb9ae8836ab.mesh", "res://.godot/imported/weapon-ammo-cannonball.obj-d66a8f0d1b456905b5ba9cb9ae8836ab.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

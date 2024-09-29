@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c0fgynjkrxsn7"
+path="res://.godot/imported/spawn-round.obj-e14784ecd2c98169246ca5baa21ee348.mesh"
+
+[deps]
+
+files=["res://.godot/imported/spawn-round.obj-e14784ecd2c98169246ca5baa21ee348.mesh"]
+
+source_file="res://Assets_3D/OBJ format/spawn-round.obj"
+dest_files=["res://.godot/imported/spawn-round.obj-e14784ecd2c98169246ca5baa21ee348.mesh", "res://.godot/imported/spawn-round.obj-e14784ecd2c98169246ca5baa21ee348.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

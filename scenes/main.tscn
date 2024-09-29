@@ -1,0 +1,47 @@
+[gd_scene load_steps=16 format=3 uid="uid://lvgu2h7ghadw"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_fdt2a"]
+[ext_resource type="PackedScene" uid="uid://dlunlycrdg7v2" path="res://Assets_3D/GLB format/tile-spawn-end-round.glb" id="2_nf8vn"]
+[ext_resource type="PackedScene" uid="uid://4c4xrxml6w2m" path="res://Assets_3D/GLB format/tower-round-build-c.glb" id="3_i6asy"]
+[ext_resource type="PackedScene" uid="uid://dkdurokr0100f" path="res://Assets_3D/GLB format/tile-crossing.glb" id="4_myft5"]
+[ext_resource type="PackedScene" uid="uid://dhpwrcrlmrm35" path="res://Assets_3D/GLB format/tile-corner-round.glb" id="5_dh3tf"]
+[ext_resource type="PackedScene" uid="uid://dokxx10jixifn" path="res://Assets_3D/GLB format/tile-straight.glb" id="6_nf680"]
+[ext_resource type="PackedScene" uid="uid://bic5oflti6ps1" path="res://Assets_3D/GLB format/tile-tree.glb" id="7_gsoac"]
+[ext_resource type="PackedScene" uid="uid://5yut3shnccvt" path="res://Assets_3D/GLB format/tile-crystal.glb" id="8_so2xw"]
+[ext_resource type="PackedScene" uid="uid://4wcaxwid4anj" path="res://Assets_3D/GLB format/tile-rock.glb" id="9_vmlhh"]
+[ext_resource type="PackedScene" uid="uid://c72krnb3h6p4g" path="res://Assets_3D/GLB format/tile-hill.glb" id="10_p2ak6"]
+[ext_resource type="PackedScene" uid="uid://cyp6q2e50m7j0" path="res://Assets_3D/GLB format/tile.glb" id="11_aws8n"]
+[ext_resource type="PackedScene" uid="uid://d0gyflkv7ooqk" path="res://Assets_3D/GLB format/enemy-ufo-c.glb" id="12_f5n0e"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_47c2u"]
+sky_top_color = Color(1, 1, 1, 1)
+sky_horizon_color = Color(4.42803e-06, 0.70826, 0.976281, 1)
+sky_curve = 0.219613
+ground_bottom_color = Color(0.13488, 0.551783, 0.0939949, 1)
+ground_horizon_color = Color(0.251452, 0.515561, 0.281756, 1)
+ground_curve = 1.68897
+
+[sub_resource type="Sky" id="Sky_nfwe7"]
+sky_material = SubResource("ProceduralSkyMaterial_47c2u")
+
+[sub_resource type="Environment" id="Environment_w5nx8"]
+background_mode = 2
+sky = SubResource("Sky_nfwe7")
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_fdt2a")
+tile_start = ExtResource("2_nf8vn")
+tile_end = ExtResource("3_i6asy")
+tile_straight = ExtResource("6_nf680")
+tile_corner = ExtResource("5_dh3tf")
+tile_crossroads = ExtResource("4_myft5")
+tile_enemy = ExtResource("12_f5n0e")
+tile_empty = Array[PackedScene]([ExtResource("7_gsoac"), ExtResource("9_vmlhh"), ExtResource("10_p2ak6"), ExtResource("8_so2xw"), ExtResource("11_aws8n"), ExtResource("11_aws8n"), ExtResource("11_aws8n"), ExtResource("11_aws8n")])
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.679787, 0.73341, 0, -0.73341, 0.679787, 7.44549, 6.72296, 11.974)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w5nx8")

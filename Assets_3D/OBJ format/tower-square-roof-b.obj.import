@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dvuxdswwd6f8o"
+path="res://.godot/imported/tower-square-roof-b.obj-ad4db1abe74b9c1ad5871846e5137526.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tower-square-roof-b.obj-ad4db1abe74b9c1ad5871846e5137526.mesh"]
+
+source_file="res://Assets_3D/OBJ format/tower-square-roof-b.obj"
+dest_files=["res://.godot/imported/tower-square-roof-b.obj-ad4db1abe74b9c1ad5871846e5137526.mesh", "res://.godot/imported/tower-square-roof-b.obj-ad4db1abe74b9c1ad5871846e5137526.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
