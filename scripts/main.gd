@@ -7,17 +7,8 @@ extends Node3D
 @export var tile_crossroads:PackedScene
 @export var tile_enemy:PackedScene
 @export var tile_empty:Array[PackedScene]
-# tamanhos máximos e mínimos do path e quantidade máxima e mínima dos loops
-@export var map_length:int = 16
-@export var map_height:int = 10
-@export var min_path_size = 50
-@export var max_path_size = 70
-@export var min_loops = 3
-@export var max_loops = 5
-# variável para o objeto PathGenerator
-var _pg:PathGenerator
+# como o script da geração de mapa está no autoload não é mais necessário criar um objeto para ele
 func _ready():
-	_pg = PathGenerator.new(map_length, map_height)
 	_display_path()
 	_complete_grid()
 	# esperar dois segundos par spawnar o inimigo e fazer ele seguir os pontos
@@ -33,7 +24,7 @@ func _pop_along_grid():
 	# criar um objeto curve3d no qual vai conter os pontos a serem percorridos pelo inimigo
 	var c3d:Curve3D = Curve3D.new()
 	# adicionar cada elemento do meu array de posições nessa curva
-	for element in _pg.get_path():
+	for element in PathGenInstance.get_path_route(): # agora tudo relacionado ao path generator vai ser carregado do PathGenInstance
 		c3d.add_point(Vector3(element.x, 0.4, element.y))
 	# criar um objeto path3d no qual os pontos do caminho a ser percorridos serão atribuídos
 	var p3d:Path3D = Path3D.new()
@@ -56,24 +47,18 @@ func _pop_along_grid():
 		# quando esse tempo acabar uma nova iteração será feita
 # aqui está a função para garantir que os tiles que não são o caminho sejam preenchidos com decoração
 func _complete_grid():
-	for x in range(map_length):
-		for y in range(map_height):
-			if not _pg.get_path().has(Vector2i(x,y)):
+	for x in range(PathGenInstance.path_config.map_length):
+		for y in range(PathGenInstance.path_config.map_height):
+			if not PathGenInstance.get_path_route().has(Vector2i(x,y)):
 				var tile:Node3D = tile_empty.pick_random().instantiate()
 				add_child(tile)
 				tile.global_position = Vector3(x, 0, y)
 				tile.global_rotation_degrees = Vector3(0, randi_range(0,3)*90, 0)
 # função para exibir o caminho
 func _display_path():
-	var iteration_count:int = 1 # Esse número é associado a quantidade de vezes que a generate_path é chamada
-	_pg.generate_path(true)
-	# iniciar a geração de mapa
-	while _pg.get_path().size() < min_path_size or _pg.get_path().size() > max_path_size or _pg.get_loop_count() < min_loops or _pg.get_loop_count() > max_loops:
-		iteration_count += 1
-		_pg.generate_path(true)
-	# Gerar o caminho com loops
-	for i in range(_pg.get_path().size()):
-		var tile_score:int = _pg.get_tile_score(i)
+	# não precisa mais das iterações que eram feitas para criar o caminho, agora isso já é feito no script do path generator
+	for i in range(PathGenInstance.get_path_route().size()):
+		var tile_score:int = PathGenInstance.get_tile_score(i)
 		var tile:Node3D = tile_empty[0].instantiate()
 		var tile_rotation: Vector3 = Vector3.ZERO
 		if tile_score == 2:
@@ -105,5 +90,5 @@ func _display_path():
 			tile_rotation = Vector3(0,0,0)
 		# adicionar os tiles na cena
 		add_child(tile)
-		tile.global_position = Vector3(_pg.get_path_tile(i).x, 0, _pg.get_path_tile(i).y)
+		tile.global_position = Vector3(PathGenInstance.get_position_tile(i).x, 0, PathGenInstance.get_position_tile(i).y)
 		tile.global_rotation_degrees = tile_rotation

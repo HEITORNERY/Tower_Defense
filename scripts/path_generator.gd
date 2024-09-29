@@ -1,16 +1,20 @@
-extends Object
+# para que um script seja carregado como autoload, deve herdar de Node
+extends Node
 # vou dar um nome para essa classe
 class_name PathGenerator
-# vou criar as variáveis privadas para a geração do maoa
-var _grid_length:int # comprimento do mapa
-var _grid_height:int # largura do mapa
+# agora que não é mais um objeto não precisa das variáveis privadas
 var _loop_count:int # contador de loops
 # array com as posições do caminho
 var _path: Array[Vector2i]
-# chamar o construtor para iniciar as variáveis privadas da classe
-func _init(length:int, height:int):
-	_grid_length = length
-	_grid_height = height
+# carregar os dados para geração do mapa, que estão no resource
+var path_config : PathGeneratorConfig = preload("res://resource/basic_path_config.tres")
+# chamar o construtor
+func _init():
+	# agora no construtor vou chamar a função de gerar caminho, mas passando o dado do resource
+	generate_path(path_config.add_loops)
+	# iniciar a geração de mapa
+	while get_path_route().size() < path_config.min_path_size or get_path_route().size() > path_config.max_path_size or get_loop_count() < path_config.min_loops or get_loop_count() > path_config.max_loops:
+		generate_path(path_config.add_loops)
 # função para escolher as posições que vão compor o array _path
 func generate_path(add_loops:bool = false):
 	# caso queira que seja gerado loops no path, passe true para a função
@@ -21,17 +25,17 @@ func generate_path(add_loops:bool = false):
 	randomize()
 	# posição inicial
 	var x = 0
-	var y = int(_grid_height/2.0)
-	while x < _grid_length:
+	var y = (path_config.map_height/2)
+	while x < path_config.map_length:
 		# adiciona a posição inicial
 		if not _path.has(Vector2i(x,y)):
 			_path.append(Vector2i(x,y))
 		# criar a variável para a escolha da direção a seguir
 		var choice:int = randi_range(0,2)
 		# 0 avança para a direita, 1 avança para baixo e 2 avança para cima
-		if choice == 0 or x < 2 or x % 2 == 0 or x == _grid_length-1:
+		if choice == 0 or x < 2 or x % 2 == 0 or x == path_config.map_length-1:
 			x += 1
-		elif choice == 1 and y < _grid_height-2 and not _path.has(Vector2i(x,y+1)):
+		elif choice == 1 and y < path_config.map_height-2 and not _path.has(Vector2i(x,y+1)):
 			y += 1
 		elif choice == 2 and y > 1 and not _path.has(Vector2i(x,y-1)):
 			y -= 1
@@ -55,7 +59,8 @@ func get_tile_score(index:int) -> int:
 	score += 8 if _path.has(Vector2i(x-1,y)) else 0
 	return score
 # uma função para retornar o array com as posições
-func get_path() -> Array[Vector2i]:
+# tive que mudar o nome para get_path_route para parar de dar conflito
+func get_path_route() -> Array[Vector2i]:
 	return _path
 # função para adicionar loops no _path
 func _add_loops():
@@ -86,7 +91,7 @@ func _is_loop_option(index:int) -> Array[Vector2i]:
 ## 3°L    |         | (4 ° Loop)
 	## ----         ----
 	# condição pro primeiro loop
-	if (x < _grid_length-1 and y > 1
+	if (x < path_config.map_length-1 and y > 1
 		and _tile_loc_free(x, y-3) and _tile_loc_free(x+1, y-3) and _tile_loc_free(x+2, y-3)		
 		and _tile_loc_free(x-1, y-2) and _tile_loc_free(x, y-2) and _tile_loc_free(x+1, y-2) and _tile_loc_free(x+2, y-2) and _tile_loc_free(x+3, y-2)
 		and _tile_loc_free(x-1, y-1) and _tile_loc_free(x, y-1) and _tile_loc_free(x+1, y-1) and _tile_loc_free(x+2, y-1) and _tile_loc_free(x+3, y-1)
@@ -114,7 +119,7 @@ func _is_loop_option(index:int) -> Array[Vector2i]:
 		_loop_count += 1
 		return_path.append(Vector2i(x,y))
 	# condição pro terceiro loop
-	elif (x < _grid_length-1 and y < _grid_height-2
+	elif (x < path_config.map_length-1 and y < path_config.map_height-2
 			and _tile_loc_free(x, y+3) and _tile_loc_free(x+1, y+3) and _tile_loc_free(x+2, y+3)		
 			and _tile_loc_free(x+1, y-1) and _tile_loc_free(x+2, y-1)
 			and _tile_loc_free(x+1, y) and _tile_loc_free(x+2, y) and _tile_loc_free(x+3, y)
@@ -128,7 +133,7 @@ func _is_loop_option(index:int) -> Array[Vector2i]:
 		_loop_count += 1
 		return_path.append(Vector2i(x,y))
 	# condição pro Quarto loop
-	elif (x > 2 and y < _grid_height-2
+	elif (x > 2 and y < path_config.map_height-2
 			and _tile_loc_free(x, y+3) and _tile_loc_free(x-1, y+3) and _tile_loc_free(x-2, y+3)
 			and _tile_loc_free(x-1, y-1) and _tile_loc_free(x-2, y-1)
 			and _tile_loc_free(x-1, y) and _tile_loc_free(x-2, y) and _tile_loc_free(x-3, y)
@@ -153,5 +158,5 @@ func _tile_loc_free(x: int, y: int) -> bool:
 func get_loop_count() -> int:
 	return _loop_count
 # uma função para retornar a posição x e y de cada índice do array _path
-func get_path_tile(index:int) -> Vector2i:
+func get_position_tile(index:int) -> Vector2i:
 	return _path[index]

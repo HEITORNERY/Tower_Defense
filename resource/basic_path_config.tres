@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PathGeneratorConfig" load_steps=2 format=3 uid="uid://voljjyub2hxd"]
+
+[ext_resource type="Script" path="res://scripts/path_generator_config.gd" id="1_dqhar"]
+
+[resource]
+script = ExtResource("1_dqhar")
+map_length = 16
+map_height = 10
+min_path_size = 50
+max_path_size = 70
+min_loops = 3
+max_loops = 5
+add_loops = true
