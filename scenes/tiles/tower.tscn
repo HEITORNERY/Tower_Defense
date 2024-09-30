@@ -8,11 +8,11 @@ size = Vector3(1.00183, 2.00583, 1)
 
 [node name="Tower" type="Area3D" groups=["Path"]]
 
-[node name="tile2" parent="." groups=["Path"] instance=ExtResource("1_anen6")]
+[node name="tile2" parent="." instance=ExtResource("1_anen6")]
 
-[node name="tower-round-build-f2" parent="." groups=["Path"] instance=ExtResource("2_mqdfr")]
+[node name="tower-round-build-f2" parent="." instance=ExtResource("2_mqdfr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Path"]]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000915527, 1.01259, 0)
 shape = SubResource("BoxShape3D_arfbu")

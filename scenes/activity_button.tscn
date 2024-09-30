@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dca80g7n7visw"]
+
+[ext_resource type="Script" path="res://scripts/activicty_button.gd" id="1_dja8h"]
+[ext_resource type="Texture2D" uid="uid://dff0xyr7daes1" path="res://images/cannon01a.png" id="2_1w471"]
+[ext_resource type="PackedScene" uid="uid://cc1ncn31duhsl" path="res://scenes/cannon.tscn" id="3_ag8ak"]
+
+[node name="Button" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_dja8h")
+activity_button = ExtResource("2_1w471")
+activity_draggable = ExtResource("3_ag8ak")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]

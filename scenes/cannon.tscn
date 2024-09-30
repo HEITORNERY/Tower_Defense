@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc1ncn31duhsl"]
+
+[ext_resource type="ArrayMesh" uid="uid://dj40totpi3v8p" path="res://Assets_3D/OBJ format/tower-round-base.obj" id="1_jqljo"]
+[ext_resource type="ArrayMesh" uid="uid://b63vx8e2ox4lk" path="res://Assets_3D/OBJ format/weapon-cannon.obj" id="2_bam12"]
+
+[node name="Cannon" type="Node3D"]
+
+[node name="Weapon-cannon" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+mesh = ExtResource("2_bam12")
+
+[node name="Tower-round-base" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_jqljo")

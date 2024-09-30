@@ -17,30 +17,6 @@ func _ready():
 	# esperar dois segundos par spawnar o inimigo e fazer ele seguir os pontos
 	await get_tree().create_timer(2).timeout
 	_pop_along_grid()
-# Chamar a physics process para poder criar o raycast de detecção da área que o mouse está clicando
-# E o raycast vai ver as colisões na direção do mouse, para saber se o caminho está livre ou não
-func _physics_process(delta: float) -> void:
-	# verificar se o botão esquerdo do mouse foi pressionado
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		# vou acessar o estado espacial do espaço 3D
-		# esse estado pode ser usado para verificar colisões, para a transmissão de raios, etc
-		var space_state = get_world_3d().direct_space_state
-		# pegar a posição do mouse em relação à tela de exibição
-		var mouse_position : Vector2 = get_viewport().get_mouse_position()
-		# Agora vou trazer essa posição do mouse para um vetor 3d e jogarei um raio na direção de onde o mouse aponta
-		var origin_mouse = cam.project_ray_origin(mouse_position)
-		# Calcular a extremidade do raio
-		var end_raycast = origin_mouse + (cam.project_ray_normal(mouse_position) * RAYCAST_LENGHT)
-		# criar um conjunto de parâmetros query, que são fundamentais para o funcionamento do raycast
-		var query = PhysicsRayQueryParameters3D.create(origin_mouse, end_raycast)
-		# um dos parâmetros query de interesse é a verificação de colisão
-		query.collide_with_areas = true
-		# armazenar as colisões detectadas num dicionário
-		var ray_result : Dictionary = space_state.intersect_ray(query)
-		# exibir o grupo da colisão
-		if ray_result.size() > 0:
-			var co : CollisionObject3D = ray_result.get("collider")
-			print(co.get_groups())
 # uma função para adicionar os pontos numa curva, pontos estes que serão seguidos pelo inimigo
 func _add_curve_point(c3d:Curve3D, v3:Vector3) ->bool:
 	c3d.add_point(v3)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://lvgu2h7ghadw"]
+[gd_scene load_steps=18 format=3 uid="uid://lvgu2h7ghadw"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_fdt2a"]
 [ext_resource type="PackedScene" uid="uid://c6qylvse1nlpt" path="res://scenes/tiles/start_tile.tscn" id="2_nui12"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dsxdmqy0o68m0" path="res://scenes/tiles/crystal_tile.tscn" id="11_7eyqm"]
 [ext_resource type="PackedScene" uid="uid://dkoeytb44wqgg" path="res://scenes/tiles/tile_empty.tscn" id="12_qk63m"]
 [ext_resource type="PackedScene" uid="uid://dca80g7n7visw" path="res://scenes/activity_button.tscn" id="13_r7ugr"]
+[ext_resource type="Texture2D" uid="uid://d3vm80ihuxg1g" path="res://images/Captura de tela 2024-09-30 182247.png" id="14_df67j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_47c2u"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -44,7 +45,7 @@ tile_enemy = ExtResource("7_5u03t")
 tile_empty = Array[PackedScene]([ExtResource("8_rkmi1"), ExtResource("9_hkf4y"), ExtResource("10_0wftp"), ExtResource("11_7eyqm"), ExtResource("12_qk63m"), ExtResource("12_qk63m"), ExtResource("12_qk63m"), ExtResource("12_qk63m")])
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.777815, 0.628493, 0, -0.628493, 0.777815, 7.17679, 6.04868, 13.3983)
+transform = Transform3D(1, 0, 0, 0, 0.679787, 0.73341, 0, -0.73341, 0.679787, 7.44549, 6.72296, 11.974)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
 
@@ -53,25 +54,22 @@ environment = SubResource("Environment_w5nx8")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Button" parent="Control" instance=ExtResource("13_r7ugr")]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = -102.0
-offset_right = 48.0
-offset_bottom = -6.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[connection signal="button_down" from="Control/Button" to="." method="_on_button_down"]
+[node name="Button" parent="Control" instance=ExtResource("13_r7ugr")]
+layout_mode = 0
+offset_left = -34.0
+offset_top = -79.0
+offset_right = 82.0
+offset_bottom = 30.0
+stretch_mode = 5
+activity_button = ExtResource("14_df67j")
