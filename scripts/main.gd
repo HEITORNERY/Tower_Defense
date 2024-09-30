@@ -20,31 +20,12 @@ func _add_curve_point(c3d:Curve3D, v3:Vector3) ->bool:
 	return true
 # função para mover o inimigo pelo caminho
 func _pop_along_grid():
-	var enemy = tile_enemy.instantiate()
-	# criar um objeto curve3d no qual vai conter os pontos a serem percorridos pelo inimigo
-	var c3d:Curve3D = Curve3D.new()
-	# adicionar cada elemento do meu array de posições nessa curva
-	for element in PathGenInstance.get_path_route(): # agora tudo relacionado ao path generator vai ser carregado do PathGenInstance
-		c3d.add_point(Vector3(element.x, 0.4, element.y))
-	# criar um objeto path3d no qual os pontos do caminho a ser percorridos serão atribuídos
-	var p3d:Path3D = Path3D.new()
-	# adicionar esse elemento na cena 
-	add_child(p3d)
-	# adicionar todos os pontos da curva nesse path3d
-	p3d.curve = c3d
-	## adicionar um pathfollow3d para o inimigo prosseguir no caminho
-	## o inimigo deve ser filho do path follow 3d e o path follow 3d deve ser filho do path3d
-	var pf3d:PathFollow3D = PathFollow3D.new()
-	p3d.add_child(pf3d)
-	pf3d.add_child(enemy)
-	# o inimigo vai percorrer o caminho do path follow 3d, por meio da atualização do progresso
-	var curr_distance:float = 0.0
-	while curr_distance < c3d.point_count-1:
-		curr_distance += 0.02 # velocidade de movimento do inimigo
-		pf3d.progress = clamp(curr_distance, 0, c3d.point_count-1.00001)
-		# o progresso vai de 0 até um valor muito pequeno depois do máximo, assim não ultrapassa o valor máximo
-		await get_tree().create_timer(0.01).timeout
-		# quando esse tempo acabar uma nova iteração será feita
+	# criar uma variável para garantir a aleatoriedade dos inimigos a serem spawnados
+	var choice : int = randi_range(4, 20)
+	for i in range(choice):
+		var enemy = tile_enemy.instantiate()
+		add_child(enemy)
+		await get_tree().create_timer(2.0).timeout
 # aqui está a função para garantir que os tiles que não são o caminho sejam preenchidos com decoração
 func _complete_grid():
 	for x in range(PathGenInstance.path_config.map_length):

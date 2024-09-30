@@ -1,0 +1,116 @@
+[gd_scene load_steps=15 format=3 uid="uid://sg4f8nfyh8op"]
+
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="1_8p1ij"]
+[ext_resource type="Script" path="res://scripts/enemy_1.gd" id="1_b00kc"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="2_wl0hb"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="3_g5dic"]
+[ext_resource type="PackedScene" uid="uid://dh4gsaip4moof" path="res://Assets_3D/GLB format/enemy-ufo-b.glb" id="3_nic8v"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="4_8ajco"]
+[ext_resource type="PackedScene" uid="uid://ci0raldbw5k0o" path="res://Assets_3D/GLB format/enemy-ufo-beam.glb" id="4_w5fp8"]
+[ext_resource type="PackedScene" uid="uid://dlxdayx0r6dti" path="res://Assets_3D/GLB format/enemy-ufo-a.glb" id="5_3i1jj"]
+[ext_resource type="PackedScene" uid="uid://d0gyflkv7ooqk" path="res://Assets_3D/GLB format/enemy-ufo-c.glb" id="5_kue1o"]
+[ext_resource type="PackedScene" uid="uid://dwuokguep1tp0" path="res://Assets_3D/GLB format/enemy-ufo-d.glb" id="6_rejrt"]
+
+[sub_resource type="Animation" id="Animation_1sirc"]
+resource_name = "spawn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path3D/PathFollow3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_n3giv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path3D/PathFollow3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_84elr"]
+resource_name = "despawn"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path3D/PathFollow3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wgthw"]
+_data = {
+"RESET": SubResource("Animation_n3giv"),
+"despawn": SubResource("Animation_84elr"),
+"spawn": SubResource("Animation_1sirc")
+}
+
+[node name="Enemy_1" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+script = ExtResource("1_b00kc")
+enemies = Array[PackedScene]([ExtResource("5_3i1jj"), ExtResource("3_nic8v"), ExtResource("4_w5fp8"), ExtResource("5_kue1o"), ExtResource("6_rejrt")])
+
+[node name="Enemy_State" type="Node" parent="."]
+script = ExtResource("1_8p1ij")
+
+[node name="CompoundState" type="Node" parent="Enemy_State"]
+script = ExtResource("2_wl0hb")
+initial_state = NodePath("Spawn")
+
+[node name="Spawn" type="Node" parent="Enemy_State/CompoundState"]
+script = ExtResource("3_g5dic")
+
+[node name="To_Travel" type="Node" parent="Enemy_State/CompoundState/Spawn"]
+script = ExtResource("4_8ajco")
+to = NodePath("../../Travel")
+event = &"To_Travel"
+delay_in_seconds = "0.0"
+
+[node name="Travel" type="Node" parent="Enemy_State/CompoundState"]
+script = ExtResource("3_g5dic")
+
+[node name="To_Despawn" type="Node" parent="Enemy_State/CompoundState/Travel"]
+script = ExtResource("4_8ajco")
+to = NodePath("../../Despawn")
+event = &"To_Despawn"
+delay_in_seconds = "0.0"
+
+[node name="Despawn" type="Node" parent="Enemy_State/CompoundState"]
+script = ExtResource("3_g5dic")
+
+[node name="Die" type="Node" parent="Enemy_State/CompoundState"]
+script = ExtResource("3_g5dic")
+
+[node name="Path3D" type="Path3D" parent="."]
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+loop = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wgthw")
+}
+
+[connection signal="state_entered" from="Enemy_State/CompoundState/Spawn" to="." method="_on_spawn_state_entered"]
+[connection signal="state_processing" from="Enemy_State/CompoundState/Travel" to="." method="_on_travel_state_processing"]
+[connection signal="state_entered" from="Enemy_State/CompoundState/Despawn" to="." method="_on_despawn_state_entered"]

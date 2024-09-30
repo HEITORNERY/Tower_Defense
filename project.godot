@@ -21,3 +21,7 @@ PathGenInstance="*res://scripts/path_generator.gd"
 [dotnet]
 
 project/assembly_name="Tower_Defense"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")

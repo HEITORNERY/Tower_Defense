@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv08fh3etj4j1"]
+
+[ext_resource type="PackedScene" uid="uid://cyp6q2e50m7j0" path="res://Assets_3D/GLB format/tile.glb" id="1_anen6"]
+[ext_resource type="PackedScene" uid="uid://6ki3oefht3xp" path="res://Assets_3D/GLB format/tower-round-build-f.glb" id="2_mqdfr"]
+
+[node name="Tower" type="Node3D"]
+
+[node name="tile2" parent="." instance=ExtResource("1_anen6")]
+
+[node name="tower-round-build-f2" parent="." instance=ExtResource("2_mqdfr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
