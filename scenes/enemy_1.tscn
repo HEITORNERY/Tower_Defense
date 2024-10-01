@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://sg4f8nfyh8op"]
+[gd_scene load_steps=14 format=3 uid="uid://sg4f8nfyh8op"]
 
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="1_8p1ij"]
 [ext_resource type="Script" path="res://scripts/enemy_1.gd" id="1_b00kc"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="3_g5dic"]
 [ext_resource type="PackedScene" uid="uid://dh4gsaip4moof" path="res://Assets_3D/GLB format/enemy-ufo-b.glb" id="3_nic8v"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="4_8ajco"]
-[ext_resource type="PackedScene" uid="uid://ci0raldbw5k0o" path="res://Assets_3D/GLB format/enemy-ufo-beam.glb" id="4_w5fp8"]
 [ext_resource type="PackedScene" uid="uid://dlxdayx0r6dti" path="res://Assets_3D/GLB format/enemy-ufo-a.glb" id="5_3i1jj"]
 [ext_resource type="PackedScene" uid="uid://d0gyflkv7ooqk" path="res://Assets_3D/GLB format/enemy-ufo-c.glb" id="5_kue1o"]
 [ext_resource type="PackedScene" uid="uid://dwuokguep1tp0" path="res://Assets_3D/GLB format/enemy-ufo-d.glb" id="6_rejrt"]
@@ -67,7 +66,7 @@ _data = {
 [node name="Enemy_1" type="Node3D" groups=["Enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 script = ExtResource("1_b00kc")
-enemies = Array[PackedScene]([ExtResource("5_3i1jj"), ExtResource("3_nic8v"), ExtResource("4_w5fp8"), ExtResource("5_kue1o"), ExtResource("6_rejrt")])
+enemies = Array[PackedScene]([ExtResource("5_3i1jj"), ExtResource("3_nic8v"), ExtResource("6_rejrt"), ExtResource("5_kue1o")])
 
 [node name="Enemy_State" type="Node" parent="."]
 script = ExtResource("1_8p1ij")

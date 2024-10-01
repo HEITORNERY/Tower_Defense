@@ -25,3 +25,8 @@ project/assembly_name="Tower_Defense"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+
+[layer_names]
+
+3d_physics/layer_1="Path"
+3d_physics/layer_2="Enemy"

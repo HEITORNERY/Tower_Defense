@@ -22,6 +22,7 @@ func _ready() -> void:
 	icon = activity_button
 	# instanciando o objeto 
 	_draggable = activity_draggable.instantiate()
+	_draggable.set_patrolling(false)
 	add_child(_draggable)
 	_draggable.visible = false
 	# obter a câmera da janela atual

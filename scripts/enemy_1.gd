@@ -6,10 +6,25 @@ var enemy_speed = 2
 var enemy_progress : float
 # variável para todos as cenas dos inimigos
 @export var enemies : Array[PackedScene]
+# criar a variável para a área do inimigo
+var area_3d : Area3D
+var colision_3d : CollisionShape3D
+var cylinder_shape = CylinderShape3D
 # criando uma curva 3d com os pontos do path
 func _ready() -> void:
 	var enemy = enemies.pick_random().instantiate()
 	$Path3D/PathFollow3D.add_child(enemy)
+	# Configurar a camada de colisão (camada 2)
+	# adicionar uma área 3d ao inimigo e uma colisão para ele
+	area_3d = Area3D.new()
+	colision_3d = CollisionShape3D.new()
+	cylinder_shape = CylinderShape3D.new()
+	cylinder_shape.height = 0.92
+	cylinder_shape.radius = 0.45
+	colision_3d.shape = cylinder_shape
+	enemy.add_child(area_3d)
+	area_3d.collision_layer = 2
+	area_3d.add_child(colision_3d)
 	curve_3d = Curve3D.new()
 	for element in PathGenInstance.get_path_route():
 		curve_3d.add_point(Vector3(element.x, 0, element.y))

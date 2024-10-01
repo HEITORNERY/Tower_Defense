@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cc1ncn31duhsl"]
+[gd_scene load_steps=5 format=3 uid="uid://cc1ncn31duhsl"]
 
+[ext_resource type="Script" path="res://scripts/cannon.gd" id="1_j1vd1"]
 [ext_resource type="ArrayMesh" uid="uid://dj40totpi3v8p" path="res://Assets_3D/OBJ format/tower-round-base.obj" id="1_jqljo"]
 [ext_resource type="ArrayMesh" uid="uid://b63vx8e2ox4lk" path="res://Assets_3D/OBJ format/weapon-cannon.obj" id="2_bam12"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g76d7"]
+radius = 4.0
+
 [node name="Cannon" type="Node3D"]
+script = ExtResource("1_j1vd1")
 
 [node name="Weapon-cannon" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
@@ -11,3 +16,14 @@ mesh = ExtResource("2_bam12")
 
 [node name="Tower-round-base" type="MeshInstance3D" parent="."]
 mesh = ExtResource("1_jqljo")
+
+[node name="PatrolZone" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PatrolZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_g76d7")
+
+[connection signal="area_entered" from="PatrolZone" to="." method="_on_patrol_zone_area_entered"]
+[connection signal="area_exited" from="PatrolZone" to="." method="_on_patrol_zone_area_exited"]
