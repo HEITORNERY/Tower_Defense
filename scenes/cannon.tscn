@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cc1ncn31duhsl"]
+[gd_scene load_steps=10 format=3 uid="uid://cc1ncn31duhsl"]
 
 [ext_resource type="Script" path="res://scripts/cannon.gd" id="1_j1vd1"]
 [ext_resource type="ArrayMesh" uid="uid://dj40totpi3v8p" path="res://Assets_3D/OBJ format/tower-round-base.obj" id="1_jqljo"]
+[ext_resource type="PackedScene" uid="uid://dugudkttxe8kc" path="res://scenes/cannon_ball.tscn" id="2_3x5vo"]
 [ext_resource type="ArrayMesh" uid="uid://b63vx8e2ox4lk" path="res://Assets_3D/OBJ format/weapon-cannon.obj" id="2_bam12"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="4_jbhyb"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_041r5"]
@@ -13,6 +14,7 @@ radius = 4.0
 
 [node name="Cannon" type="Node3D"]
 script = ExtResource("1_j1vd1")
+projectile_type = ExtResource("2_3x5vo")
 
 [node name="Weapon-cannon" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.16, 0)
@@ -68,6 +70,9 @@ script = ExtResource("7_v2cfu")
 to = NodePath("../../PatrollingState")
 event = &"To_Patrolling_State"
 delay_in_seconds = "0.0"
+
+[node name="Projectile_Spawn" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.547368, -0.306635)
 
 [connection signal="area_entered" from="PatrolZone" to="." method="_on_patrol_zone_area_entered"]
 [connection signal="area_exited" from="PatrolZone" to="." method="_on_patrol_zone_area_exited"]

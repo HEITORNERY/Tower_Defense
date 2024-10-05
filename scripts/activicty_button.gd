@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 			# Obtém o objeto que colidiu com o raio.
 			var co:CollisionObject3D = rayResult.get("collider")
 			# Verifica se o objeto faz parte do grupo "Grid_Empty" (local válido).
-			if co.get_groups()[0] == "Grid_Empty":
+			if co.get_groups().size() > 0 and co.get_groups()[0] == "Grid_Empty":
 				# Torna o objeto visível.
 				_draggable.visible = true
 				# Marca que o local é válido.
