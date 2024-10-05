@@ -27,6 +27,11 @@ func _ready() -> void:
 	_draggable.set_patrolling(false)
 	add_child(_draggable)
 	_draggable.visible = false
+	# Desativa o monitoramento da área 3D do objeto arrastável
+	if _draggable.has_node("Area3D"):
+		var area_3d = _draggable.get_node("Area3D")
+		area_3d.monitoring = false
+		area_3d.monitorable = false
 	# obter a câmera da janela atual
 	_cam = get_viewport().get_camera_3d()
 # Chamar a physics process para poder criar o raycast de detecção da área que o mouse está clicando
@@ -133,3 +138,8 @@ func _on_button_up() -> void:
 		# Posiciona o objeto na última posição válida.
 		activity.global_position = _last_valid_location
 		tiles_used.append(_last_valid_location)
+	# Ativar o monitoramento e o monitorable da área 3D do objeto instanciado
+		if activity.has_node("Area3D"):
+			var area_3d = activity.get_node("Area3D")
+			area_3d.monitoring = true
+			area_3d.monitorable = true

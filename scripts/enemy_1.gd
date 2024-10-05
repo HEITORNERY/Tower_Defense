@@ -25,6 +25,7 @@ func _ready() -> void:
 	enemy.add_child(area_3d)
 	area_3d.collision_layer = 2
 	area_3d.add_child(colision_3d)
+	area_3d.area_entered.connect(_on_area_3d_entered)
 	curve_3d = Curve3D.new()
 	for element in PathGenInstance.get_path_route():
 		curve_3d.add_point(Vector3(element.x, 0, element.y))
@@ -44,3 +45,6 @@ func _on_travel_state_processing(delta: float) -> void:
 # sinal que vai fazer o inimigo sumir, quando chegar no final do percursso
 func _on_despawn_state_entered() -> void:
 	queue_free()
+func _on_area_3d_entered(body: Area3D) -> void:
+	if body is Projectile:
+		print("Tiro")
