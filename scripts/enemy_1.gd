@@ -43,6 +43,4 @@ func _on_travel_state_processing(delta: float) -> void:
 		$Enemy_State.send_event("To_Despawn")
 # sinal que vai fazer o inimigo sumir, quando chegar no final do percursso
 func _on_despawn_state_entered() -> void:
-	$AnimationPlayer.play("despawn")
-	await $AnimationPlayer.animation_finished
 	queue_free()

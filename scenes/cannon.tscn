@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cc1ncn31duhsl"]
+[gd_scene load_steps=9 format=3 uid="uid://cc1ncn31duhsl"]
 
 [ext_resource type="Script" path="res://scripts/cannon.gd" id="1_j1vd1"]
 [ext_resource type="ArrayMesh" uid="uid://dj40totpi3v8p" path="res://Assets_3D/OBJ format/tower-round-base.obj" id="1_jqljo"]
 [ext_resource type="ArrayMesh" uid="uid://b63vx8e2ox4lk" path="res://Assets_3D/OBJ format/weapon-cannon.obj" id="2_bam12"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="4_jbhyb"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="5_041r5"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="6_ol4da"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_v2cfu"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_g76d7"]
 radius = 4.0
@@ -11,7 +15,7 @@ radius = 4.0
 script = ExtResource("1_j1vd1")
 
 [node name="Weapon-cannon" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.16, 0)
 mesh = ExtResource("2_bam12")
 
 [node name="Tower-round-base" type="MeshInstance3D" parent="."]
@@ -25,5 +29,50 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_g76d7")
 
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("4_jbhyb")
+
+[node name="CompoundState" type="Node" parent="StateChart"]
+script = ExtResource("5_041r5")
+initial_state = NodePath("PatrollingState")
+
+[node name="PatrollingState" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("6_ol4da")
+
+[node name="To_Acquiring_State" type="Node" parent="StateChart/CompoundState/PatrollingState"]
+script = ExtResource("7_v2cfu")
+to = NodePath("../../AcquiringState")
+event = &"To_Acquiring_State"
+delay_in_seconds = "0.0"
+
+[node name="AcquiringState" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("6_ol4da")
+
+[node name="To_Attacking_State" type="Node" parent="StateChart/CompoundState/AcquiringState"]
+script = ExtResource("7_v2cfu")
+to = NodePath("../../AttackingState")
+event = &"To_Attacking_State"
+delay_in_seconds = "0.0"
+
+[node name="To_Patrolling_State" type="Node" parent="StateChart/CompoundState/AcquiringState"]
+script = ExtResource("7_v2cfu")
+to = NodePath("../../PatrollingState")
+event = &"To_Patrolling_State"
+delay_in_seconds = "0.0"
+
+[node name="AttackingState" type="Node" parent="StateChart/CompoundState"]
+script = ExtResource("6_ol4da")
+
+[node name="To_Patrolling_State" type="Node" parent="StateChart/CompoundState/AttackingState"]
+script = ExtResource("7_v2cfu")
+to = NodePath("../../PatrollingState")
+event = &"To_Patrolling_State"
+delay_in_seconds = "0.0"
+
 [connection signal="area_entered" from="PatrolZone" to="." method="_on_patrol_zone_area_entered"]
 [connection signal="area_exited" from="PatrolZone" to="." method="_on_patrol_zone_area_exited"]
+[connection signal="state_processing" from="StateChart/CompoundState/PatrollingState" to="." method="_on_patrolling_state_state_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/AcquiringState" to="." method="_on_acquiring_state_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/CompoundState/AcquiringState" to="." method="_on_acquiring_state_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/CompoundState/AttackingState" to="." method="_on_attacking_state_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/CompoundState/AttackingState" to="." method="_on_attacking_state_state_physics_processing"]

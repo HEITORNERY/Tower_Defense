@@ -1,7 +1,7 @@
 extends Node3D
 # primeiro preciso das referências as cenas dos objetos que vão compor o cenário
 @export var tile_start:PackedScene
-@export var tile_end:PackedScene
+@export var tile_end:Array[PackedScene]
 @export var tile_straight:PackedScene
 @export var tile_corner:PackedScene
 @export var tile_crossroads:PackedScene
@@ -49,7 +49,7 @@ func _display_path():
 			tile = tile_start.instantiate()
 			tile_rotation = Vector3(0,90,0)
 		elif tile_score == 8:
-			tile = tile_end.instantiate()
+			tile = tile_end.pick_random().instantiate()
 			tile_rotation = Vector3(0,90,0)
 		elif tile_score == 10:
 			tile = tile_straight.instantiate()
