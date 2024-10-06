@@ -17,6 +17,8 @@ func _ready():
 	# esperar dois segundos par spawnar o inimigo e fazer ele seguir os pontos
 	await get_tree().create_timer(2).timeout
 	_pop_along_grid()
+	var timer = randi_range(30, 90)
+	$Timer.start(timer)
 # uma função para adicionar os pontos numa curva, pontos estes que serão seguidos pelo inimigo
 func _add_curve_point(c3d:Curve3D, v3:Vector3) ->bool:
 	c3d.add_point(v3)
@@ -24,12 +26,11 @@ func _add_curve_point(c3d:Curve3D, v3:Vector3) ->bool:
 # função para mover o inimigo pelo caminho
 func _pop_along_grid():
 	# criar uma variável para garantir a aleatoriedade dos inimigos a serem spawnados
-	var choice : int = randi_range(4, 10)
+	var choice : int = randi_range(20, 30)
 	for i in range(choice):
 		var enemy = tile_enemy.instantiate()
 		add_child(enemy)
-		await get_tree().create_timer(3.0).timeout
-	generate_waves()
+		await get_tree().create_timer(2.0).timeout
 # aqui está a função para garantir que os tiles que não são o caminho sejam preenchidos com decoração
 func _complete_grid():
 	for x in range(PathGenInstance.path_config.map_length):
@@ -77,11 +78,6 @@ func _display_path():
 		add_child(tile)
 		tile.global_position = Vector3(PathGenInstance.get_position_tile(i).x, 0, PathGenInstance.get_position_tile(i).y)
 		tile.global_rotation_degrees = tile_rotation
-# uma função para gerar ondas 
-func generate_waves() -> void:
-	var wave : int = 0
-	var choice : int = randi_range(1, 10)
-	while wave < choice:
-		await get_tree().create_timer(3.0).timeout
-		_pop_along_grid()
-		wave += 1
+# temporizador da onda finalizou
+func _on_timer_timeout() -> void:
+	get_tree().reload_current_scene()

@@ -11,10 +11,14 @@ var area_3d : Area3D
 var colision_3d : CollisionShape3D
 var cylinder_shape = CylinderShape3D
 # vida dos inimigos
-var health : int = 60
+var health : int 
+# inimigo instanciado
+var enemy : Node3D
 # criando uma curva 3d com os pontos do path
 func _ready() -> void:
-	var enemy = enemies.pick_random().instantiate()
+	var health_choice = randi_range(60, 80)
+	health = health_choice
+	enemy = enemies.pick_random().instantiate()
 	$Path3D/PathFollow3D.add_child(enemy)
 	# Configurar a camada de colisão (camada 2)
 	# adicionar uma área 3d ao inimigo e uma colisão para ele

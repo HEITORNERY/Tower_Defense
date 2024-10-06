@@ -17,6 +17,8 @@ var _is_valid_location:bool = false
 var _last_valid_location:Vector3
 # array para aramzenar os tiles usados para adicionar as armas
 var tiles_used : Array
+# máximo de armas que podem ser adicionadas
+var max_weapons : int = 0
 # Carrega um material de erro da pasta de recursos (usado para indicar locais inválidos)
 @onready var _error_mat:BaseMaterial3D = preload("res://materials/material_red.tres")
 func _ready() -> void:
@@ -130,11 +132,12 @@ func _on_button_up() -> void:
 	# Torna o objeto invisível.
 	_draggable.visible = false
 	# Se a posição do objeto for válida.
-	if _is_valid_location and not tiles_used.has(_last_valid_location):
+	if _is_valid_location and not tiles_used.has(_last_valid_location) and max_weapons < 16:
 		# Instancia um novo objeto arrastável.
 		var activity = activity_draggable.instantiate()
 		# Adiciona o objeto à cena.
 		add_child(activity)
+		max_weapons += 1
 		# Posiciona o objeto na última posição válida.
 		activity.global_position = _last_valid_location
 		tiles_used.append(_last_valid_location)
