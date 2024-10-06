@@ -49,7 +49,7 @@ tile_enemy = ExtResource("7_5u03t")
 tile_empty = Array[PackedScene]([ExtResource("8_rkmi1"), ExtResource("9_hkf4y"), ExtResource("10_0wftp"), ExtResource("11_7eyqm"), ExtResource("12_qk63m"), ExtResource("12_qk63m"), ExtResource("12_qk63m"), ExtResource("12_qk63m")])
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.777815, 0.628493, 0, -0.628493, 0.777815, 7.17679, 6.04868, 13.3983)
+transform = Transform3D(0.015581, 0.648745, -0.760846, -0.0133918, 0.761006, 0.648607, 0.999789, 8.31427e-05, 0.0205451, -2.55994, 4.38024, 4.69303)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D"]
 
