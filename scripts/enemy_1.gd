@@ -10,6 +10,8 @@ var enemy_progress : float
 var area_3d : Area3D
 var colision_3d : CollisionShape3D
 var cylinder_shape = CylinderShape3D
+# vida dos inimigos
+var health : int = 20
 # criando uma curva 3d com os pontos do path
 func _ready() -> void:
 	var enemy = enemies.pick_random().instantiate()
@@ -25,6 +27,7 @@ func _ready() -> void:
 	enemy.add_child(area_3d)
 	area_3d.collision_layer = 2
 	area_3d.add_child(colision_3d)
+	# conecatr um sinal de quando uma área 3d entrou na área do inimigo
 	area_3d.area_entered.connect(_on_area_3d_entered)
 	curve_3d = Curve3D.new()
 	for element in PathGenInstance.get_path_route():
@@ -45,6 +48,9 @@ func _on_travel_state_processing(delta: float) -> void:
 # sinal que vai fazer o inimigo sumir, quando chegar no final do percursso
 func _on_despawn_state_entered() -> void:
 	queue_free()
+# função que vai ser conectada à área 3d e fazer o que um sinal de detecção de área
 func _on_area_3d_entered(body: Area3D) -> void:
 	if body is Projectile:
-		print("Tiro")
+		health -= body.damage
+		if health <= 0:
+			queue_free()
