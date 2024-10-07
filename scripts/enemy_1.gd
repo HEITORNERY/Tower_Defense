@@ -1,4 +1,5 @@
 extends Node3D
+class_name Enemy
 # criar uma variável para a curva 3d
 var curve_3d : Curve3D
 # criar variáveis para a velocidade do inimigo e seu progresso
@@ -14,10 +15,15 @@ var cylinder_shape = CylinderShape3D
 var health : int 
 # inimigo instanciado
 var enemy : Node3D
+# variável de dano do inimigo
+var damage : int
 # criando uma curva 3d com os pontos do path
 func _ready() -> void:
 	var health_choice = randi_range(60, 80)
 	health = health_choice
+	# o dano vai ser aleatório para cada nível
+	var damage_choice = randi_range(3, 9)
+	damage = damage_choice
 	enemy = enemies.pick_random().instantiate()
 	$Path3D/PathFollow3D.add_child(enemy)
 	# Configurar a camada de colisão (camada 2)
@@ -31,7 +37,7 @@ func _ready() -> void:
 	enemy.add_child(area_3d)
 	area_3d.collision_layer = 2
 	area_3d.add_child(colision_3d)
-	# conecatr um sinal de quando uma área 3d entrou na área do inimigo
+	# conectar um sinal de quando uma área 3d entrou na área do inimigo
 	area_3d.area_entered.connect(_on_area_3d_entered)
 	curve_3d = Curve3D.new()
 	for element in PathGenInstance.get_path_route():
@@ -58,3 +64,7 @@ func _on_area_3d_entered(body: Area3D) -> void:
 		health -= body.damage
 		if health <= 0:
 			queue_free()
+	elif body is Tower:
+		body.health -= damage
+		if body.health <= 0:
+			get_tree().quit()

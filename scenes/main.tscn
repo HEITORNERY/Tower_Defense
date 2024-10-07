@@ -1,18 +1,18 @@
 [gd_scene load_steps=22 format=3 uid="uid://lvgu2h7ghadw"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_fdt2a"]
-[ext_resource type="PackedScene" uid="uid://bqf65jygmcqw7" path="res://Assets_3D/GLB format/tower-round-build-a.glb" id="2_f1p4g"]
 [ext_resource type="PackedScene" uid="uid://dlunlycrdg7v2" path="res://Assets_3D/GLB format/tile-spawn-end-round.glb" id="2_fe1cs"]
-[ext_resource type="PackedScene" uid="uid://cvt34bpwrpbgr" path="res://Assets_3D/GLB format/tower-round-build-b.glb" id="3_yc1qq"]
-[ext_resource type="PackedScene" uid="uid://4c4xrxml6w2m" path="res://Assets_3D/GLB format/tower-round-build-c.glb" id="4_gh5ws"]
+[ext_resource type="PackedScene" uid="uid://davw108q2prv8" path="res://scenes/tiles/tower_a.tscn" id="3_2unv4"]
+[ext_resource type="PackedScene" uid="uid://c742k56lfjv0g" path="res://scenes/tiles/tower_b.tscn" id="4_pebd8"]
 [ext_resource type="PackedScene" uid="uid://cdj22xhyuruti" path="res://scenes/tiles/straight_tile.tscn" id="4_ymh01"]
 [ext_resource type="PackedScene" uid="uid://dpbd3iipkdt6b" path="res://scenes/tiles/corner_tile.tscn" id="5_3rjot"]
-[ext_resource type="PackedScene" uid="uid://dbgp7q2d16sns" path="res://Assets_3D/GLB format/tower-round-build-d.glb" id="5_pbksm"]
+[ext_resource type="PackedScene" uid="uid://d4lqdu2yfp17y" path="res://scenes/tiles/tower_c.tscn" id="5_m6qch"]
 [ext_resource type="PackedScene" uid="uid://dkty8l8ngxbb1" path="res://scenes/tiles/crossroad_tile.tscn" id="6_5xcmo"]
-[ext_resource type="PackedScene" uid="uid://c27pa7hsiwg4e" path="res://Assets_3D/GLB format/tower-round-build-e.glb" id="6_okhsw"]
+[ext_resource type="PackedScene" uid="uid://ci25nfbww52o5" path="res://scenes/tiles/tower_d.tscn" id="6_x5v1s"]
 [ext_resource type="PackedScene" uid="uid://sg4f8nfyh8op" path="res://scenes/enemy_1.tscn" id="7_5u03t"]
-[ext_resource type="PackedScene" uid="uid://6ki3oefht3xp" path="res://Assets_3D/GLB format/tower-round-build-f.glb" id="7_ydlsj"]
+[ext_resource type="PackedScene" uid="uid://dw61kmbse64jf" path="res://scenes/tiles/tower_e.tscn" id="7_l3my8"]
 [ext_resource type="PackedScene" uid="uid://m4fhwgmsbgqi" path="res://scenes/tiles/tree_tile.tscn" id="8_rkmi1"]
+[ext_resource type="PackedScene" uid="uid://bvd72plkhagkq" path="res://scenes/tiles/tower_f.tscn" id="8_scync"]
 [ext_resource type="PackedScene" uid="uid://cn57mvvdfsbcx" path="res://scenes/tiles/rock_tile.tscn" id="9_hkf4y"]
 [ext_resource type="PackedScene" uid="uid://cen4ny2lcxtj5" path="res://scenes/tiles/hill_tile.tscn" id="10_0wftp"]
 [ext_resource type="PackedScene" uid="uid://dsxdmqy0o68m0" path="res://scenes/tiles/crystal_tile.tscn" id="11_7eyqm"]
@@ -41,7 +41,7 @@ adjustment_contrast = 1.25
 [node name="Main" type="Node3D"]
 script = ExtResource("1_fdt2a")
 tile_start = ExtResource("2_fe1cs")
-tile_end = Array[PackedScene]([ExtResource("2_f1p4g"), ExtResource("3_yc1qq"), ExtResource("4_gh5ws"), ExtResource("5_pbksm"), ExtResource("6_okhsw"), ExtResource("7_ydlsj")])
+tile_end = Array[PackedScene]([ExtResource("3_2unv4"), ExtResource("4_pebd8"), ExtResource("5_m6qch"), ExtResource("6_x5v1s"), ExtResource("7_l3my8"), ExtResource("8_scync")])
 tile_straight = ExtResource("4_ymh01")
 tile_corner = ExtResource("5_3rjot")
 tile_crossroads = ExtResource("6_5xcmo")
