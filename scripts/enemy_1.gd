@@ -63,8 +63,11 @@ func _on_area_3d_entered(body: Area3D) -> void:
 	if body is Projectile:
 		health -= body.damage
 		if health <= 0:
-			queue_free()
+			$Enemy_State.send_event("To_Dying")
 	elif body is Tower:
 		body.health -= damage
 		if body.health <= 0:
 			get_tree().quit()
+# sinal de que entrou no estado de morte
+func _on_die_state_entered() -> void:
+	$Enemy_State.send_event("Remove")

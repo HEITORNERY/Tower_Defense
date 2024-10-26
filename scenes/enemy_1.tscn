@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://sg4f8nfyh8op"]
+[gd_scene load_steps=14 format=3 uid="uid://sg4f8nfyh8op"]
 
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="1_8p1ij"]
 [ext_resource type="Script" path="res://scripts/enemy_1.gd" id="1_b00kc"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dlxdayx0r6dti" path="res://Assets_3D/GLB format/enemy-ufo-a.glb" id="5_3i1jj"]
 [ext_resource type="PackedScene" uid="uid://d0gyflkv7ooqk" path="res://Assets_3D/GLB format/enemy-ufo-c.glb" id="5_kue1o"]
 [ext_resource type="PackedScene" uid="uid://dwuokguep1tp0" path="res://Assets_3D/GLB format/enemy-ufo-d.glb" id="6_rejrt"]
+[ext_resource type="AudioStream" uid="uid://dijyxvhe81w0r" path="res://audio/explosion.mp3" id="10_dfoui"]
 
 [sub_resource type="Animation" id="Animation_n3giv"]
 length = 0.001
@@ -76,11 +77,23 @@ to = NodePath("../../Despawn")
 event = &"To_Despawn"
 delay_in_seconds = "0.0"
 
+[node name="To_Dying" type="Node" parent="Enemy_State/CompoundState/Travel"]
+script = ExtResource("4_8ajco")
+to = NodePath("../../Die")
+event = &"To_Dying"
+delay_in_seconds = "0.0"
+
 [node name="Despawn" type="Node" parent="Enemy_State/CompoundState"]
 script = ExtResource("3_g5dic")
 
 [node name="Die" type="Node" parent="Enemy_State/CompoundState"]
 script = ExtResource("3_g5dic")
+
+[node name="Remove" type="Node" parent="Enemy_State/CompoundState/Die"]
+script = ExtResource("4_8ajco")
+to = NodePath("../../Despawn")
+event = &"Remove"
+delay_in_seconds = "0.0"
 
 [node name="Path3D" type="Path3D" parent="."]
 
@@ -93,6 +106,10 @@ libraries = {
 "": SubResource("AnimationLibrary_wgthw")
 }
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("10_dfoui")
+
 [connection signal="state_entered" from="Enemy_State/CompoundState/Spawn" to="." method="_on_spawn_state_entered"]
 [connection signal="state_processing" from="Enemy_State/CompoundState/Travel" to="." method="_on_travel_state_processing"]
 [connection signal="state_entered" from="Enemy_State/CompoundState/Despawn" to="." method="_on_despawn_state_entered"]
+[connection signal="state_entered" from="Enemy_State/CompoundState/Die" to="." method="_on_die_state_entered"]

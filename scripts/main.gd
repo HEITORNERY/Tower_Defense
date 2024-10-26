@@ -1,4 +1,5 @@
 extends Node3D
+class_name Main
 # primeiro preciso das referências as cenas dos objetos que vão compor o cenário
 @export var tile_start:PackedScene
 @export var tile_end:Array[PackedScene]
@@ -10,6 +11,7 @@ extends Node3D
 # variáveis para o Raycast
 @onready var cam = $Camera3D
 @export var RAYCAST_LENGHT : float = 100
+var timer : float
 # como o script da geração de mapa está no autoload não é mais necessário criar um objeto para ele
 func _ready():
 	_display_path()
@@ -17,7 +19,7 @@ func _ready():
 	# esperar dois segundos par spawnar o inimigo e fazer ele seguir os pontos
 	await get_tree().create_timer(2).timeout
 	_pop_along_grid()
-	var timer = randi_range(30, 90)
+	timer = float(randi_range(30, 90))
 	$Timer.start(timer)
 # uma função para adicionar os pontos numa curva, pontos estes que serão seguidos pelo inimigo
 func _add_curve_point(c3d:Curve3D, v3:Vector3) ->bool:
@@ -81,3 +83,7 @@ func _display_path():
 # temporizador da onda finalizou
 func _on_timer_timeout() -> void:
 	get_tree().reload_current_scene()
+func _process(_delta: float) -> void:
+	if timer > 0:
+		timer -= _delta
+		$Label.text = "Timer to end of the wave " + str(int(timer)) + "s"

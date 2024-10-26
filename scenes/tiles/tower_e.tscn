@@ -14,3 +14,12 @@ mesh = ExtResource("1_oi62l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConcavePolygonShape3D_lerg3")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -79.5
+offset_right = 79.5
+offset_bottom = 27.0
+grow_horizontal = 2

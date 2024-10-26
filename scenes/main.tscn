@@ -82,5 +82,15 @@ grow_vertical = 0
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.0
+offset_top = 50.0
+offset_right = 90.0
+offset_bottom = 85.0
+grow_horizontal = 2
+
 [connection signal="button_down" from="Control/Button" to="." method="_on_button_down"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
