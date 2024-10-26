@@ -67,7 +67,7 @@ func _on_area_3d_entered(body: Area3D) -> void:
 	elif body is Tower:
 		body.health -= damage
 		if body.health <= 0:
-			get_tree().quit()
+			get_tree().change_scene_to_file("res://scenes/loser.tscn")
 # sinal de que entrou no estado de morte
 func _on_die_state_entered() -> void:
 	$Enemy_State.send_event("Remove")

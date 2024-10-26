@@ -1,0 +1,99 @@
+[gd_scene load_steps=5 format=3 uid="uid://ds0efecwpcxg3"]
+
+[ext_resource type="Script" path="res://scripts/credits.gd" id="1_dslob"]
+[ext_resource type="Texture2D" uid="uid://do5c353gpe5cw" path="res://images/IrmaosNeryLogo.jpeg" id="2_fuqpk"]
+
+[sub_resource type="Theme" id="Theme_kja8k"]
+Button/colors/font_color = Color(0.00392157, 0.87451, 0.87451, 1)
+Button/colors/font_hover_pressed_color = Color(1, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(1, 0, 0, 1)
+Button/font_sizes/font_size = 32
+
+[sub_resource type="Theme" id="Theme_ia6me"]
+Button/colors/font_color = Color(0, 0.87451, 0.87451, 1)
+Button/colors/font_hover_pressed_color = Color(1, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 0.0745098, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(1, 0.0901961, 0, 1)
+Button/font_sizes/font_size = 22
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dslob")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.314316, 0.314316, 0.314316, 1)
+self_modulate = Color(0.47788, 0.47788, 0.47788, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fuqpk")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "This game was developed by the Nery Brothers.
+
+We are independent game developers.
+
+We don't have much experience, so we develop games for Itchio to train and improve our skills.
+
+We are in the process of developing a commercial game.
+
+In the meantime, follow our Itchio page and see the games we have developed.
+"
+
+[node name="Return" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -117.0
+offset_top = -166.0
+offset_right = 140.0
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_kja8k")
+text = "Return To Menu"
+
+[node name="Page" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -114.0
+offset_top = -69.0
+offset_right = 139.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_ia6me")
+text = "Check out our games"
+
+[connection signal="pressed" from="Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="Page" to="." method="_on_page_pressed"]
