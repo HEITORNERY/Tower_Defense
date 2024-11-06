@@ -14,6 +14,5 @@ The game is endless.
 You must position your weapons to defend your tower.
 Be careful, there is a limit to the number of towers, so position them strategically.
 Each wave has a different time and the enemies can be stronger or weaker, but there can be many, so be careful and think carefully about your strategy.
-https://github.com/user-attachments/assets/1cba2918-4e9a-491e-a5e4-d6cc1988eaa1
 # Finally, HAVE FUN
 (https://heitornery.itch.io/protec)
